@@ -28,7 +28,8 @@ A comprehensive Streamlit application designed to detect fake news from various 
 2. **Create a Virtual Environment**
    ```bash
    python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   source venv/bin/activate  
+   On Windows: venv\Scripts\activate
    ```
 
 3. **Install Dependencies**
