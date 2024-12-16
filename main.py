@@ -272,4 +272,4 @@ if st.button("Fetch Top Headlines"):
 
 # Footer
 st.markdown("---")
-st.markdown("Developed by [Your Name](https://github.com/yourusername)")
+st.markdown("Developed by [Team Ignite](https://github.com/yourusername)")
