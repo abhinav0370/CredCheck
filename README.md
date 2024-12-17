@@ -22,7 +22,7 @@ A comprehensive Streamlit application designed to detect fake news from various 
 
 1. **Clone the Repository**
    ```bash
-   git clone https://github.com/abhinav0370/TruthTell-Hackathon-Project.git
+   git clone https://github.com/abhinav0370/CredCheck.git
    ```
 
 2. **Create a Virtual Environment**
