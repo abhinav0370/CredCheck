@@ -1,5 +1,3 @@
-# main.py
-
 import streamlit as st
 import os
 from langdetect import detect
@@ -92,20 +90,23 @@ if app_mode == "Analyze Headline":
                     auth_result = fake_news_detector(headline)
                     st.write(f"**CredCheck Classification:** {classify_auth(auth_result.get('is_fake', False))}")
                     
-                    # ClaimBuster Check
-                    st.info("🔍 Veryfying Flagged Content With Exteranl API ")
-                    claimbuster_result = check_claim(headline)
-                    
-                    if "error" in claimbuster_result:
-                        st.error(claimbuster_result["error"])
+                    # Only use ClaimBuster if flagged as fake
+                    if auth_result.get('is_fake', False):
+                        st.info("🔍 Checking claim with ClaimBuster...")
+                        claimbuster_result = check_claim(headline)
+                        
+                        if "error" in claimbuster_result:
+                            st.error(claimbuster_result["error"])
+                        else:
+                            for result in claimbuster_result["results"]:
+                                score = result["score"]
+                                classification = classify_claim(score)
+                                st.write(f"**Claim:** {result['text']}")
+                                st.write(f"**Score:** {score}")
+                                st.write(f"**ClaimBuster Classification:** {classification}")
+                                st.markdown("---")
                     else:
-                        for result in claimbuster_result["results"]:
-                            score = result["score"]
-                            classification = classify_claim(score)
-                            st.write(f"**Claim:** {result['text']}")
-                            st.write(f"**Score:** {score}")
-                            st.write(f"**ClaimBuster Classification:** {classification}")
-                            st.markdown("---")
+                        st.success("✅ The news is classified as real.")
             else:
                 st.error("⚠️ Please enter a headline.")
 
@@ -127,24 +128,27 @@ if app_mode == "Analyze Headline":
                         text = translation(text)
                         st.success(f"**Translated Text:** {text}")
                     # Auth Detector
-                    st.info("📊 Analyzing headline with CredCheck...")
+                    st.info("📊 Analyzing text with CredCheck...")
                     auth_result = fake_news_detector(text)
                     st.write(f"**CredCheck Classification:** {classify_auth(auth_result.get('is_fake', False))}")
                     
-                    # ClaimBuster Check
-                    st.info("🔍 Veryfying Flagged Content With Exteranl API ")
-                    claimbuster_result = check_claim(text)
-                    
-                    if "error" in claimbuster_result:
-                        st.error(claimbuster_result["error"])
+                    # Only use ClaimBuster if flagged as fake
+                    if auth_result.get('is_fake', False):
+                        st.info("🔍 Veryfying Flagged Content With Exteranl API")
+                        claimbuster_result = check_claim(text)
+                        
+                        if "error" in claimbuster_result:
+                            st.error(claimbuster_result["error"])
+                        else:
+                            for result in claimbuster_result["results"]:
+                                score = result["score"]
+                                classification = classify_claim(score)
+                                st.write(f"**Claim:** {result['text']}")
+                                st.write(f"**Score:** {score}")
+                                st.write(f"**ClaimBuster Classification:** {classification}")
+                                st.markdown("---")
                     else:
-                        for result in claimbuster_result["results"]:
-                            score = result["score"]
-                            classification = classify_claim(score)
-                            st.write(f"**Claim:** {result['text']}")
-                            st.write(f"**Score:** {score}")
-                            st.write(f"**ClaimBuster Classification:** {classification}")
-                            st.markdown("---")
+                        st.success("✅ The news is classified as real.")
             else:
                 st.error("⚠️ Please upload an audio file.")
 
@@ -174,20 +178,23 @@ if app_mode == "Analyze Headline":
                         auth_result = fake_news_detector(extracted_text)
                         st.write(f"**CredCheck Classification:** {classify_auth(auth_result.get('is_fake', False))}")
                         
-                        # ClaimBuster Check
-                        st.info("🔍 Checking claim with ClaimBuster...")
-                        claimbuster_result = check_claim(extracted_text)
-                        
-                        if "error" in claimbuster_result:
-                            st.error(claimbuster_result["error"])
+                        # Only use ClaimBuster if flagged as fake
+                        if auth_result.get('is_fake', False):
+                            st.info("🔍 Veryfying Flagged Content With Exteranl API")
+                            claimbuster_result = check_claim(extracted_text)
+                            
+                            if "error" in claimbuster_result:
+                                st.error(claimbuster_result["error"])
+                            else:
+                                for result in claimbuster_result["results"]:
+                                    score = result["score"]
+                                    classification = classify_claim(score)
+                                    st.write(f"**Claim:** {result['text']}")
+                                    st.write(f"**Score:** {score}")
+                                    st.write(f"**ClaimBuster Classification:** {classification}")
+                                    st.markdown("---")
                         else:
-                            for result in claimbuster_result["results"]:
-                                score = result["score"]
-                                classification = classify_claim(score)
-                                st.write(f"**Claim:** {result['text']}")
-                                st.write(f"**Score:** {score}")
-                                st.write(f"**ClaimBuster Classification:** {classification}")
-                                st.markdown("---")
+                            st.success("✅ The news is classified as real.")
             else:
                 st.error("⚠️ Please upload an image file.")
 
@@ -221,20 +228,23 @@ if app_mode == "Analyze Headline":
                         auth_result = fake_news_detector(text)
                         st.write(f"**CredCheck Classification:** {classify_auth(auth_result.get('is_fake', False))}")
                         
-                        # ClaimBuster Check
-                        st.info("🔍 Checking claim with ClaimBuster...")
-                        claimbuster_result = check_claim(text)
-                        
-                        if "error" in claimbuster_result:
-                            st.error(claimbuster_result["error"])
+                        # Only use ClaimBuster if flagged as fake
+                        if auth_result.get('is_fake', False):
+                            st.info("🔍 Veryfying Flagged Content With Exteranl API")
+                            claimbuster_result = check_claim(text)
+                            
+                            if "error" in claimbuster_result:
+                                st.error(claimbuster_result["error"])
+                            else:
+                                for result in claimbuster_result["results"]:
+                                    score = result["score"]
+                                    classification = classify_claim(score)
+                                    st.write(f"**Claim:** {result['text']}")
+                                    st.write(f"**Score:** {score}")
+                                    st.write(f"**ClaimBuster Classification:** {classification}")
+                                    st.markdown("---")
                         else:
-                            for result in claimbuster_result["results"]:
-                                score = result["score"]
-                                classification = classify_claim(score)
-                                st.write(f"**Claim:** {result['text']}")
-                                st.write(f"**Score:** {score}")
-                                st.write(f"**ClaimBuster Classification:** {classification}")
-                                st.markdown("---")
+                            st.success("✅ The news is classified as real.")
             else:
                 st.error("⚠️ Please upload a video file.")
 
@@ -252,20 +262,30 @@ if st.button("Fetch Top Headlines"):
             num_to_analyze = min(10, len(headlines))
             headlines_to_analyze = headlines[:num_to_analyze]
 
-            # Send each headline to ClaimBuster only
-            with st.spinner('🔍 Analyzing headlines with ClaimBuster...'):
+            # Analyze each headline with CredCheck first
+            with st.spinner('📊 Analyzing headlines with CredCheck...'):
                 for idx, headline in enumerate(headlines_to_analyze, start=1):
                     st.write(f"**Headline {idx}:** {headline}")
                     
-                    # ClaimBuster Check
-                    claimbuster_result = check_claim(headline)
-                    if "error" in claimbuster_result:
-                        st.error(f"Error analyzing headline {idx} with ClaimBuster: {claimbuster_result['error']}")
+                    # CredCheck Fake News Detection
+                    auth_result = fake_news_detector(headline)
+                    st.write(f"**CredCheck Classification:** {classify_auth(auth_result.get('is_fake', False))}")
+                    
+                    # Only use ClaimBuster if flagged as fake
+                    if auth_result.get('is_fake', False):
+                        st.info("🔍 Veryfying Flagged Content With Exteranl API")
+                        claimbuster_result = check_claim(headline)
+                        if "error" in claimbuster_result:
+                            st.error(f"Error analyzing headline {idx} with ClaimBuster: {claimbuster_result['error']}")
+                        else:
+                            for result in claimbuster_result["results"]:
+                                score = result["score"]
+                                classification = classify_claim(score)
+                                st.write(f"**Claim:** {result['text']}")
+                                st.write(f"**Score:** {score}")
+                                st.write(f"**ClaimBuster Classification:** {classification}")
                     else:
-                        for result in claimbuster_result["results"]:
-                            score = result["score"]
-                            classification = classify_claim(score)
-                            st.write(f"**ClaimBuster Classification:** {classification}")
+                        st.success("✅ The news is classified as real.")
                     st.markdown("---")
         else:
             st.error(headlines.get("error", "⚠️ An error occurred."))
