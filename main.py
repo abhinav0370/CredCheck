@@ -132,7 +132,7 @@ if app_mode == "Analyze Headline":
                     st.write(f"**CredCheck Classification:** {classify_auth(auth_result.get('is_fake', False))}")
                     
                     # ClaimBuster Check
-                    st.info("🔍 Checking claim with ClaimBuster...")
+                    st.info("🔍 Veryfying Flagged Content With Exteranl API ")
                     claimbuster_result = check_claim(text)
                     
                     if "error" in claimbuster_result:
