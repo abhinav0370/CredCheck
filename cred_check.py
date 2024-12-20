@@ -1,11 +1,8 @@
-# cred_check.py
 import requests
 from transformers import AutoTokenizer, AutoModel
 import torch
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
-import spacy
-
 # Constants
 
 GOOGLE_API_KEY = ""
@@ -24,9 +21,6 @@ TRUSTED_SOURCES = [
 # Initialize the tokenizer and model for BERT
 tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
 model = AutoModel.from_pretrained("bert-base-uncased")
-
-# Load the spaCy NER model
-nlp = spacy.load("en_core_web_sm")
 
 def get_embeddings(text):
     inputs = tokenizer(text, return_tensors="pt", truncation=True, padding=True)
@@ -64,22 +58,6 @@ def calculate_similarity(headline, search_results):
 
     return similarities
 
-def extract_named_entities(text):
-    doc = nlp(text)
-    entities = [ent.text for ent in doc.ents]
-    return entities
-
-def contextual_analysis(headline, search_results):
-    headline_entities = extract_named_entities(headline)
-    context_score = 0
-
-    for result in search_results:
-        result_entities = extract_named_entities(result["title"] + " " + result["snippet"])
-        if any(entity in headline_entities for entity in result_entities):
-            context_score += 1
-
-    return context_score / len(search_results) if search_results else 0
-
 def enhance_credibility_score(link, headline):
     credibility_score = 0
 
@@ -102,7 +80,6 @@ def fake_news_detector(headline):
     credibility_scores = [
         enhance_credibility_score(result["link"], result["title"]) for result in search_results
     ]
-    context_score = contextual_analysis(headline, search_results)
 
     average_similarity = float(np.mean(similarities)) if similarities else 0
     average_credibility = float(np.mean(credibility_scores)) if credibility_scores else 0
@@ -112,6 +89,5 @@ def fake_news_detector(headline):
         "headline": headline,
         "average_similarity": average_similarity,
         "average_credibility": average_credibility,
-        "context_score": context_score,
         "is_fake": bool(is_fake),
     }
