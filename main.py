@@ -92,7 +92,7 @@ if app_mode == "Analyze Headline":
                     
                     # Only use ClaimBuster if flagged as fake
                     if auth_result.get('is_fake', False):
-                        st.info("🔍 Checking claim with ClaimBuster...")
+                        st.info("🔍 Veryfying Flagged Content With Exteranl API")
                         claimbuster_result = check_claim(headline)
                         
                         if "error" in claimbuster_result:
