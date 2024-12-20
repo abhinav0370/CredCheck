@@ -3,8 +3,10 @@ from transformers import AutoTokenizer, AutoModel
 import torch
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
-# Constants
+import streamlit as st
+import logging
 
+# Constants
 GOOGLE_API_KEY = ""
 CUSTOM_SEARCH_ENGINE_ID = ""
 
@@ -34,7 +36,7 @@ def google_search(query, num_results=5):
     if response.status_code == 200:
         results = response.json().get("items", [])
         return [
-            {"title": item["title"], "snippet": item["snippet"], "link": item["link"]}
+            {"title": item.get("title", ""), "snippet": item.get("snippet", ""), "link": item.get("link", "")}
             for item in results[:num_results]
         ]
     else:
