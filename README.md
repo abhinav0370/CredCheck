@@ -41,10 +41,7 @@ A comprehensive Streamlit application designed to detect fake news from various 
    pip install -r requirements.txt
    ```
 
-4. **Download spaCy Language Model**
-   ```bash
-   python -m spacy download en_core_web_sm
-   ```
+
 
 ### Additional Software Installation
 
