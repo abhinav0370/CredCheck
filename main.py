@@ -79,10 +79,10 @@ if app_mode == "Analyze Headline":
                     # Only use ClaimBuster if flagged as fake
                     if auth_result.get('is_fake', False):
                         if not is_english(headline):
-                            st.info("🔄 Translating to English for ClaimBuster...")
+                            st.info("🔄 Translating to English for External API")
                             headline = translation(headline)
                             st.success(f"**Translated Text:** {headline}")
-                        st.info("🔍 Checking claim with ClaimBuster...")
+                        st.info("🔍 Veryfying Flagged Content With External API")
                         claimbuster_result = check_claim(headline)
                         
                         if "error" in claimbuster_result:
@@ -118,10 +118,10 @@ if app_mode == "Analyze Headline":
                     # Only use ClaimBuster if flagged as fake
                     if auth_result.get('is_fake', False):
                         if not is_english(text):
-                            st.info("🔄 Translating to English for ClaimBuster...")
+                            st.info("🔄 Translating to English for External API")
                             text = translation(text)
                             st.success(f"**Translated Text:** {text}")
-                        st.info("🔍 Veryfying Flagged Content With Exteranl API")
+                        st.info("🔍 Veryfying Flagged Content With External API")
                         claimbuster_result = check_claim(text)
                         
                         if "error" in claimbuster_result:
@@ -161,10 +161,10 @@ if app_mode == "Analyze Headline":
                         # Only use ClaimBuster if flagged as fake
                         if auth_result.get('is_fake', False):
                             if not is_english(extracted_text):
-                                st.info("🔄 Translating to English for ClaimBuster...")
+                                st.info("🔄 Translating to English for External API")
                                 extracted_text = translation(extracted_text)
                                 st.success(f"**Translated Text:** {extracted_text}")
-                            st.info("🔍 Veryfying Flagged Content With Exteranl API")
+                            st.info("🔍 Veryfying Flagged Content With External API")
                             claimbuster_result = check_claim(extracted_text)
                             
                             if "error" in claimbuster_result:
@@ -206,10 +206,10 @@ if app_mode == "Analyze Headline":
                         # Only use ClaimBuster if flagged as fake
                         if auth_result.get('is_fake', False):
                             if not is_english(text):
-                                st.info("🔄 Translating to English for ClaimBuster...")
+                                st.info("🔄 Translating to English for External API")
                                 text = translation(text)
                                 st.success(f"**Translated Text:** {text}")
-                            st.info("🔍 Veryfying Flagged Content With Exteranl API")
+                            st.info("🔍 Veryfying Flagged Content With External API")
                             claimbuster_result = check_claim(text)
                             
                             if "error" in claimbuster_result:
@@ -251,10 +251,10 @@ if st.button("Fetch Top Headlines"):
                         # Only use ClaimBuster if flagged as fake
                         if auth_result.get('is_fake', False):
                             if not is_english(headline):
-                                st.info("🔄 Translating to English for ClaimBuster...")
+                                st.info("🔄 Translating to English for External API")
                                 headline = translation(headline)
                                 st.success(f"**Translated Text:** {headline}")
-                            st.info("🔍 Veryfying Flagged Content With Exteranl API")
+                            st.info("🔍 Veryfying Flagged Content With External API")
                             claimbuster_result = check_claim(headline)
                             if "error" in claimbuster_result:
                                 st.error(f"Error analyzing headline {idx} with ClaimBuster: {claimbuster_result['error']}")
