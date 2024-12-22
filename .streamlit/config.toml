@@ -1,0 +1,9 @@
+# .streamlit/config.toml
+
+[theme]
+base = "light"  # Sets the base theme to light mode
+primaryColor = "#4CAF50"  # Custom primary color (e.g., green)
+backgroundColor = "#FFFFFF"  # Background color
+secondaryBackgroundColor = "#F0F2F6"  # Secondary background color
+textColor = "#333333"  # Text color
+font = "sans serif"  # Font family
